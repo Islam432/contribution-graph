@@ -21,3 +21,17 @@ const ContributionGraph: React.FC = () => {
 
     fetchContributions();
   }, []);
+
+
+
+  const today: Date = new Date();
+  const todayDate: string = today.toISOString().split('T')[0];
+
+  const dateRange: string[] = [];
+  for (let i = 0; i < 357; i++) {
+    const date: Date = new Date(today);
+    date.setDate(today.getDate() - i);
+    dateRange.push(date.toISOString().split('T')[0]);
+  }
+
+ 
