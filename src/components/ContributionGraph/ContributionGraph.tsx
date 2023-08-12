@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ky from 'ky';
-import './ContributionGraph.css'; // Импортируйте стили из вашего CSS-файла
+import './ContributionGraph.css';
 
 interface ContributionData {
   [date: string]: number;
@@ -23,60 +23,54 @@ const ContributionGraph: React.FC = () => {
   }, []);
 
   const today: Date = new Date();
-  today.setHours(0, 0, 0, 0);
+  const todayDate: string = today.toISOString().split('T')[0];
 
-  const endDate: Date = new Date(today);
-  endDate.setDate(endDate.getDate() - 50 * 7);
+  const dateRange: string[] = [];
+  for (let i = 0; i < 357; i++) {
 
-  const dateRange: Date[] = [];
-  for (let date = today; date >= endDate; date.setDate(date.getDate() - 1)) {
-    dateRange.push(new Date(date));
+    const date: Date = new Date(today);
+
+
+    date.setDate(today.getDate() - i);
+    dateRange.push(date.toISOString().split('T')[0]);
   }
 
-  const cellStyle = (date: Date) => {
-    const isToday = date.toISOString() === today.toISOString();
-    const count = contributions[date.toISOString().split('T')[0]] || 0;
+  const cellStyle = (date: string) => {
+    const isToday = date === todayDate;
+    const count = contributions[date] || 0;
 
     let color = 'empty';
-    let range = '';
+    let rag = 'no contributios';
 
     if (count >= 1 && count <= 9) {
       color = 'lowContributions';
-      range = '1-9';
+      rag = '1-9 contributios';
     } else if (count >= 10 && count <= 30) {
       color = 'mediumContributions';
-      range = '10-30';
+      rag = '10-30 contributios';
     } else if (count > 30) {
+
       color = 'highContributions';
-      range = '31+';
+      rag = '30 + contributios';
     }
 
-    const cellClasses = [
+    const classes = [
       'contribution-cell',
       isToday ? 'today' : color,
     ].join(' ');
 
-    return { cellClasses, range };
+    return { classes, rag };
   };
 
   return (
     <div className="cont">
       <div className="contribution-graph">
-        <div className="days-of-week-row">
-          <div className="day-label" />
-          {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-            <div key={day} className="day-label">{day}</div>
-          ))}
-        </div>
         {dateRange.map(date => {
-          const { cellClasses, range } = cellStyle(date);
+          const { classes, rag } = cellStyle(date);
+          
           return (
-            <div
-              key={date.toISOString().split('T')[0]}
-              className={cellClasses}
-              data-count={contributions[date.toISOString().split('T')[0]] || 0}
-            >
-              <span className="tooltip">{range}</span>
+            <div key={date} className={classes} data-count={contributions[date] || 0}>
+              <span className="tooltip">{rag}</span>
             </div>
           );
         })}
