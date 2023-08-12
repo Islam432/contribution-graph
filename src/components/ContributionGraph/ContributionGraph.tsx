@@ -15,14 +15,14 @@ const ContributionGraph: React.FC = () => {
         const data: ContributionData = await ky.get('https://dpg.gg/test/calendar.json').json();
         setContributions(data);
       } catch (error) {
-        console.error('Ошибка при получении данных:', error);
+        console.error('ошибка при получении данных:', error);
       }
     };
 
     fetchContributions();
   }, []);
 
-//    const daysOfWeek: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
 
   const today: Date = new Date();
   const todayDate: string = today.toISOString().split('T')[0];
@@ -66,10 +66,7 @@ const ContributionGraph: React.FC = () => {
           
         <div className="contribution-graph">
           
-        {/* {daysOfWeek.map(day => (
-                <div key={day} className="day-label">{day}</div>
-              ))}
-           */}
+       
         {dateRange.map(date => {
   const { cellClasses, range } = cellStyle(date);
   return (
