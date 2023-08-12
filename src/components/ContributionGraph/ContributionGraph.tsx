@@ -22,7 +22,7 @@ const ContributionGraph: React.FC = () => {
     fetchContributions();
   }, []);
 
-
+//   const daysOfWeek: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
   const today: Date = new Date();
   const todayDate: string = today.toISOString().split('T')[0];
@@ -34,4 +34,5 @@ const ContributionGraph: React.FC = () => {
     dateRange.push(date.toISOString().split('T')[0]);
   }
 
- 
+
+export default ContributionGraph;
