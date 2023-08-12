@@ -34,5 +34,25 @@ const ContributionGraph: React.FC = () => {
     dateRange.push(date.toISOString().split('T')[0]);
   }
 
+  const cellStyle = (date: string) => {
+    const isToday = date === todayDate;
+    const count = contributions[date] || 0;
+  
+    
+  };
+  return (
+    <div className="contribution-graph">
+      <div className="day-label" />
+
+      {dateRange.map(date => (
+        <div
+          key={date}
+          className={cellStyle(date)}
+          data-count={contributions[date] || 0}
+        />
+      ))}
+    </div>
+  );
+};
 
 export default ContributionGraph;
