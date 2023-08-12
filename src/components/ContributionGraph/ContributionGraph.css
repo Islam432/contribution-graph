@@ -71,3 +71,24 @@ body {
   .highContributions {
     background-color: #254E77;
   }
+
+
+  /* ContributionGraph.css */
+
+/* ... предыдущие стили ... */
+
+.tooltip {
+    position: absolute;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 4px;
+    border-radius: 4px;
+    font-size: 12px;
+    z-index: 1;
+  }
+  
+  .contribution-cell:hover .tooltip {
+    display: block;
+  }
+  
